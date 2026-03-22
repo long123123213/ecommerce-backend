@@ -40,5 +40,5 @@ app.use("/api/admin", adminRoutes);
 app.get("/",(req,res)=>{
     res.send("API is running...");
 });
-setInterval(() => autoCancelPendingOrders(1), 60 * 1000);
+setInterval(() => autoCancelPendingOrders(15), 60 * 1000);
 module.exports=app;
