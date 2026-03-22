@@ -3,19 +3,20 @@ const router = express.Router();
 
 const controller = require("../controllers/productVariant.controller");
 const validate = require("../middlewares/validate.middleware");
-
+const authMiddleware = require("../middlewares/auth.middleware");
+const adminMiddleware=require("../middlewares/admin.middleware");
 const {
   createVariantSchema,
   updateVariantSchema,
 } = require("../validators/productVariant.validate");
 
 // CREATE
-router.post("/", validate(createVariantSchema), controller.createVariant);
+router.post("/", authMiddleware,adminMiddleware,validate(createVariantSchema), controller.createVariant);
 
 // UPDATE
-router.patch("/:id", validate(updateVariantSchema), controller.updateVariant);
+router.patch("/:id", authMiddleware,adminMiddleware,validate(updateVariantSchema), controller.updateVariant);
 
 // DELETE (có thể thêm validate nếu muốn)
-router.delete("/:id", controller.deleteVariant);
+router.delete("/:id", authMiddleware,adminMiddleware,controller.deleteVariant);
 
 module.exports = router;

@@ -3,7 +3,8 @@ const router = express.Router();
 const Banner = require("../models/banner");
 const upload = require("../middlewares/upload");
 const cloudinary = require("../config/cloudinary");
-
+const authMiddleware = require("../middlewares/auth.middleware");
+const adminMiddleware=require("../middlewares/admin.middleware");
 // ======================
 // GET ALL BANNERS
 // ======================
@@ -24,7 +25,7 @@ router.get("/", async (req, res) => {
 // ======================
 // CREATE BANNER
 // ======================
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", authMiddleware,adminMiddleware,upload.single("image"), async (req, res) => {
 
   try {
 
@@ -58,7 +59,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 // ======================
 // UPDATE BANNER
 // ======================
-router.put("/:id", async (req, res) => {
+router.put("/:id",authMiddleware,adminMiddleware, async (req, res) => {
   try {
 
     const banner = await Banner.findByIdAndUpdate(
@@ -84,7 +85,7 @@ router.put("/:id", async (req, res) => {
 // ======================
 // DELETE BANNER
 // ======================
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",authMiddleware,adminMiddleware, async (req, res) => {
   try {
 
     await Banner.findByIdAndDelete(req.params.id);
