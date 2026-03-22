@@ -168,10 +168,10 @@ exports.vnpayReturn = async (req, res) => {
       await order.save();
 
       return res.redirect(
-        `http://localhost:3000/success?orderId=${orderId}`
+        `https://ecommerce-frontend-ckjq.onrender.com/success?orderId=${orderId}`
       );
     } else {
-      return res.redirect("http://localhost:3000/fail");
+      return res.redirect("https://ecommerce-frontend-ckjq.onrender.com/fail");
     }
 
   } catch (error) {
