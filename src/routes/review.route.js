@@ -1,0 +1,10 @@
+const express=require("express");
+const router=express.Router();
+const reviewController=require("../controllers/review.controller");
+const authMiddleware=require("../middlewares/auth.middleware");
+const adminMiddleware=require("../middlewares/admin.middleware");
+router.post("/",authMiddleware,reviewController.createReview);
+router.get("/variant/:idVariant",reviewController.getReviewsByVariant);
+router.patch("/:id",authMiddleware, reviewController.updateReview);
+router.patch("/status/:id",authMiddleware, adminMiddleware, reviewController.updateReviewStatus); 
+module.exports=router;
